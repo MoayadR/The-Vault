@@ -1,0 +1,32 @@
+{
+  "name": "the-vault",
+  "version": "1.0.0",
+  "description": "Password Manager App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoayadR/The-Vault.git"
+  },
+  "keywords": [
+    "password",
+    "manager",
+    "management",
+    "encryption",
+    "decryption",
+    "sqlite",
+    "DB"
+  ],
+  "author": "Moayad Rida",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MoayadR/The-Vault/issues"
+  },
+  "homepage": "https://github.com/MoayadR/The-Vault#readme",
+  "devDependencies": {
+    "electron": "^31.3.1"
+  }
+}
