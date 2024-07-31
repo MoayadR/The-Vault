@@ -1,5 +1,6 @@
 const { app, BrowserWindow, screen } = require('electron')
 const path = require('node:path')
+const { createDB, getMasterPassword, closeDB } = require('./sqlite.js');
 
 
 const createWindow = (winPath, preloadPath) => {
@@ -15,13 +16,26 @@ const createWindow = (winPath, preloadPath) => {
 }
 
 app.whenReady().then(() => {
-    createWindow('pages/index/index.html', 'preload.js')
+    createDB();
+
+    const masterPassword = getMasterPassword();
+    let initialWindow = 'pages/Login/login.html';
+
+    if (Object.keys(masterPassword).length === 0) {
+        initialWindow = 'pages/Register/register.html';
+        console.log('no master password');
+    }
+
+    createWindow(initialWindow, 'preload.js')
 
     app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow('pages/index/index.html', 'preload.js')
+        if (BrowserWindow.getAllWindows().length === 0) createWindow(initialWindow, 'preload.js')
     })
 })
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
+    if (process.platform !== 'darwin') {
+        app.quit()
+        closeDB();
+    }
 })

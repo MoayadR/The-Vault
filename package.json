@@ -30,6 +30,6 @@
     "electron": "^31.3.1"
   },
   "dependencies": {
-    "rxdb": "^15.29.0"
+    "sqlite3": "^5.1.7"
   }
 }
