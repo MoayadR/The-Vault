@@ -28,5 +28,8 @@
   "homepage": "https://github.com/MoayadR/The-Vault#readme",
   "devDependencies": {
     "electron": "^31.3.1"
+  },
+  "dependencies": {
+    "rxdb": "^15.29.0"
   }
 }
