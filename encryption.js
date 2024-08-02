@@ -1,7 +1,7 @@
 const CryptoJS = require('crypto-js');
+require('dotenv').config();
 
-const secretKey = 'dummy';
-// const secretKey = process.env.SECRET_KEY; // this is not working for now
+const secretKey = process.env.SECRET_KEY; // this is not working for now
 
 const encrypt = (text) => {
     return CryptoJS.AES.encrypt(text, secretKey).toString();

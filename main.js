@@ -27,20 +27,18 @@ app.whenReady().then(() => {
 
         // encrypt the master password
         const encryptedMasterPassword = encrypt(data);
-        console.log(encryptedMasterPassword);
 
         // save it to the db
 
         // load the new window
         const currentWindow = BrowserWindow.getAllWindows()[0];
-        currentWindow.loadFile('pages/Home/index.html');
+        currentWindow.loadFile('pages/Home/home.html');
     })
 
     let initialWindow = 'pages/Login/login.html';
 
     if (Object.keys(masterPassword).length === 0) {
         initialWindow = 'pages/Register/register.html';
-        console.log('no master password');
     }
 
     createWindow(initialWindow, 'preload.js')
