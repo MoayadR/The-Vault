@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/MoayadR/The-Vault#readme",
   "devDependencies": {
+    "crypto-js": "^4.2.0",
     "electron": "^31.3.1"
   },
   "dependencies": {

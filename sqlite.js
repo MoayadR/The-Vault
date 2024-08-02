@@ -8,19 +8,20 @@ createDB = () => {
     });
 }
 
-createMasterPassword = (masterPassword) => {
-    // check if there is a master password or not
-    const masterPassword = this.getMasterPassword();
-    if (Object.keys(masterPassword).length !== 0) return false;
-
-    db.run("INSERT INTO Master VALUES (?)", [masterPassword]);
-    return true;
-}
 
 getMasterPassword = () => {
     return db.get("SELECT password FROM Master LIMIT 1");
 }
 
+
+createMasterPassword = (masterPassword) => {
+    // check if there is a master password or not
+    const masterPasswordObj = getMasterPassword();
+    if (Object.keys(masterPasswordObj).length !== 0) return false;
+
+    db.run("INSERT INTO Master VALUES (?)", [masterPassword]);
+    return true;
+}
 closeDB = () => {
     db.close();
 }

@@ -1,6 +1,7 @@
-const { app, BrowserWindow, screen } = require('electron')
+const { app, BrowserWindow, screen, ipcMain } = require('electron')
 const path = require('node:path')
 const { createDB, getMasterPassword, closeDB } = require('./sqlite.js');
+const { encrypt, decrypt } = require('./encryption.js');
 
 
 const createWindow = (winPath, preloadPath) => {
@@ -11,14 +12,30 @@ const createWindow = (winPath, preloadPath) => {
             preload: path.join(__dirname, preloadPath)
         }
     })
+    // win.openDevTools();
 
     win.loadFile(winPath)
 }
 
 app.whenReady().then(() => {
     createDB();
-
     const masterPassword = getMasterPassword();
+
+    ipcMain.on("createMasterPassword", (event, data) => {
+        // if there is a masterpassword return
+        if (Object.keys(masterPassword).length !== 0) return;
+
+        // encrypt the master password
+        const encryptedMasterPassword = encrypt(data);
+        console.log(encryptedMasterPassword);
+
+        // save it to the db
+
+        // load the new window
+        const currentWindow = BrowserWindow.getAllWindows()[0];
+        currentWindow.loadFile('pages/Home/index.html');
+    })
+
     let initialWindow = 'pages/Login/login.html';
 
     if (Object.keys(masterPassword).length === 0) {
