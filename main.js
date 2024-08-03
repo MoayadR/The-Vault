@@ -1,6 +1,6 @@
 const { app, BrowserWindow, screen, ipcMain } = require('electron')
 const path = require('node:path')
-const { createDB, getMasterPassword, closeDB } = require('./sqlite.js');
+const { createDB, getMasterPassword, closeDB, createMasterPassword } = require('./sqlite.js');
 const { encrypt, decrypt } = require('./encryption.js');
 
 
@@ -17,27 +17,47 @@ const createWindow = (winPath, preloadPath) => {
     win.loadFile(winPath)
 }
 
-app.whenReady().then(() => {
-    createDB();
-    const masterPassword = getMasterPassword();
+app.whenReady().then(async () => {
+    try {
+        await createDB();
+    } catch (error) {
+        console.log(error);
+    }
 
-    ipcMain.on("createMasterPassword", (event, data) => {
+    const masterPassword = await getMasterPassword();
+    console.log(masterPassword);
+
+
+    ipcMain.on("createMasterPassword", async (event, data) => {
         // if there is a masterpassword return
-        if (Object.keys(masterPassword).length !== 0) return;
+
+        if (masterPassword && Object.keys(masterPassword).length !== 0) return;
 
         // encrypt the master password
         const encryptedMasterPassword = encrypt(data);
 
         // save it to the db
+        try {
+            const statusFlag = await createMasterPassword(encryptedMasterPassword);
+            if (statusFlag) {
+                // load the new window
+                const currentWindow = BrowserWindow.getAllWindows()[0];
+                currentWindow.loadFile('pages/Home/home.html');
+            }
 
-        // load the new window
-        const currentWindow = BrowserWindow.getAllWindows()[0];
-        currentWindow.loadFile('pages/Home/home.html');
+        } catch (error) {
+            console.log(error);
+            /*
+                Error Handling
+                =============================================================================================================
+            */
+        }
+
     })
 
     let initialWindow = 'pages/Login/login.html';
 
-    if (Object.keys(masterPassword).length === 0) {
+    if (!masterPassword || Object.keys(masterPassword).length === 0) {
         initialWindow = 'pages/Register/register.html';
     }
 
