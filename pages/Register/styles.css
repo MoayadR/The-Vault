@@ -6,6 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     min-height: 90vh;
     font-family: monospace;
 }
@@ -15,6 +16,9 @@ body {
     text-align: center;
     font-size: 50px;
     font-weight: lighter;
+    width: fit-content;
+    border-right: 2px solid;
+    animation: blink 0.5s infinite;
 }
 
 .form {
@@ -48,4 +52,15 @@ button:hover {
 
 span:hover {
     cursor: pointer;
+}
+
+/* header animation typewriter */
+@keyframes blink {
+    from {
+        border-right-color: white;
+    }
+
+    to {
+        border-right-color: transparent;
+    }
 }

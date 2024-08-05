@@ -16,6 +16,9 @@ body {
     text-align: center;
     font-size: 50px;
     font-weight: lighter;
+    width: fit-content;
+    border-right: 2px solid;
+    animation: blink 0.5s infinite;
 }
 
 .form {
@@ -49,25 +52,6 @@ button:hover {
 
 span:hover {
     cursor: pointer;
-}
-
-/* header animation typewriter */
-h1 {
-    width: 251px;
-    border-right: 2px solid;
-    overflow: hidden;
-    white-space: nowrap;
-    animation: control-width 3s steps(9) 2s both, blink 0.5s infinite;
-}
-
-@keyframes control-width {
-    from {
-        width: 0;
-    }
-
-    to {
-        width: 251px;
-    }
 }
 
 @keyframes blink {
