@@ -6,6 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     min-height: 90vh;
     font-family: monospace;
 }
@@ -48,4 +49,33 @@ button:hover {
 
 span:hover {
     cursor: pointer;
+}
+
+/* header animation typewriter */
+h1 {
+    width: 251px;
+    border-right: 2px solid;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: control-width 3s steps(9) 2s both, blink 0.5s infinite;
+}
+
+@keyframes control-width {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 251px;
+    }
+}
+
+@keyframes blink {
+    from {
+        border-right-color: white;
+    }
+
+    to {
+        border-right-color: transparent;
+    }
 }
