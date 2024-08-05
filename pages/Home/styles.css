@@ -93,7 +93,7 @@ body {
     display: flex;
     background-color: white;
     height: 30px;
-    margin: 10px;
+    margin: 10px 0px 10px 0px;
     flex-direction: row;
     justify-content: space-evenly;
     border-radius: 25px;
@@ -109,5 +109,23 @@ body {
 }
 
 .delete-icon:hover {
+    cursor: pointer;
+}
+
+.add-div {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    position: absolute;
+    left: 62.5%;
+    bottom: 5%;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-div:hover {
     cursor: pointer;
 }
