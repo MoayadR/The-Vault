@@ -24,9 +24,18 @@ app.whenReady().then(async () => {
         console.log(error);
     }
 
-    const masterPassword = await getMasterPassword();
-    console.log(masterPassword);
+    const masterPasswordObj = await getMasterPassword();
+    const masterPassword = masterPasswordObj.password;
 
+    ipcMain.handle("verifyMasterPassword", async (event, data) => {
+        if (data === decrypt(masterPassword)) {
+            // oopen the home window 
+            const currentWindow = BrowserWindow.getAllWindows()[0];
+            currentWindow.loadFile('pages/Home/home.html');
+            return true;
+        }
+        return false;
+    });
 
     ipcMain.on("createMasterPassword", async (event, data) => {
         // if there is a masterpassword return

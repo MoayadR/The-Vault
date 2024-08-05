@@ -3,7 +3,7 @@ const masterPasswordInput = document.getElementById('password')
 const createMasterPassword = () => {
     const password = masterPasswordInput.value;
     if (password.trim() !== '') {
-        messages.sendMasterPassword(password.trim());
+        messages.createMasterPassword(password.trim());
     }
 }
 
