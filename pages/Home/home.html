@@ -5,16 +5,46 @@
     <title>The Vault</title>
     <link rel="stylesheet" href="../reset.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <h1 class="title">The Vault</h1>
-    <p>hasdashdlakshflaskhflakshflakshflakshflaskhflakshflakshflkh</p>
+    <div class="side-menu">
+        <h1 class="title"></h1>
+    </div>
+    <div class="main-body">
+        <div class="header-div">
+            <h2 class="your-passwords">Your Passwords</h2>
+            <input class="search-input" type="text" placeholder="Search">
+        </div>
+
+        <div class="table-div">
+            <table id="table">
+                <thead>
+                    <tr class="table-row-header">
+                        <th>Detail</th>
+                        <th>Email/Username</th>
+                        <th>Password</th>
+                        <th class="delete-header">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row">
+                        <td> Quia, vel.</td>
+                        <td> Quia, vel.</td>
+                        <td> Quia, vel.</td>
+                        <td>
+                            <i class="fa fa-trash-o delete-icon"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script src="renderer.js"></script>
     <script src="script.js"></script>
+    <script src="../titleWriterScript.js"></script>
 </body>
 
 </html>

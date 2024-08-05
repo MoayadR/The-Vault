@@ -1,0 +1,113 @@
+body {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    font-family: monospace;
+}
+
+.title {
+    margin-top: 3%;
+    text-align: center;
+    font-size: 50px;
+    font-weight: lighter;
+    width: fit-content;
+    border-right: 2px solid;
+    animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+    from {
+        border-right-color: white;
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}
+
+.side-menu {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.main-body {
+    background-color: #DEDEDE;
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+}
+
+.header-div {
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2%;
+}
+
+.your-passwords {
+    font-size: 24px;
+}
+
+.search-input {
+    width: 20%;
+    border-radius: 20px;
+    text-align: center;
+    height: 100%;
+    border: none;
+}
+
+.table-div {
+    color: black;
+    background-color: white;
+    min-height: 85vh;
+    border-radius: 15px;
+    margin: 1%;
+}
+
+#table {
+    width: 100%;
+}
+
+.table-row-header {
+    width: 98%;
+    display: flex;
+    background-color: #DEDEDE;
+    flex-direction: row;
+    height: 30px;
+    margin: 10px;
+    justify-content: space-evenly;
+    border-radius: 25px;
+}
+
+.table-row-header th {
+    padding: 9px;
+}
+
+.table-row {
+    width: 98%;
+    display: flex;
+    background-color: white;
+    height: 30px;
+    margin: 10px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-radius: 25px;
+}
+
+.delete-header {
+    color: red;
+}
+
+.delete-icon {
+    color: red;
+    font-size: 36px;
+}
+
+.delete-icon:hover {
+    cursor: pointer;
+}
