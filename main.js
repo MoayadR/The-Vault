@@ -57,7 +57,11 @@ app.whenReady().then(async () => {
     });
 
     ipcMain.handle('getAllPasswords', async () => {
-        return await getAllPasswords();
+        let passwordObjs = await getAllPasswords();
+        for (let obj of passwordObjs) {
+            obj.password = decrypt(obj.password);
+        }
+        return passwordObjs;
     });
 
     ipcMain.on("openCreateNewPassword", async (event, data) => {
@@ -65,6 +69,7 @@ app.whenReady().then(async () => {
     })
 
     ipcMain.on('createPassword', async (event, data) => {
+        data.password = encrypt(data.password);
         const status = await createNewPassword(data);
 
         if (status === true) {
