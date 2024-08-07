@@ -85,18 +85,24 @@ body {
 }
 
 .table-row-header th {
+    flex: 1;
     padding: 9px;
 }
 
 .table-row {
-    width: 98%;
     display: flex;
+    justify-content: space-evenly;
     background-color: white;
     height: 30px;
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0;
     flex-direction: row;
-    justify-content: space-evenly;
     border-radius: 25px;
+}
+
+.table-row td {
+    flex: 1;
+    text-align: center;
+    padding: 9px;
 }
 
 .delete-header {
@@ -105,7 +111,7 @@ body {
 
 .delete-icon {
     color: red;
-    font-size: 36px;
+    font-size: 28px;
 }
 
 .delete-icon:hover {

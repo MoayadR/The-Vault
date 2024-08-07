@@ -5,7 +5,7 @@ createDB = () => {
     return new Promise((resolve, reject) => {
         db.serialize(() => {
             db.run("CREATE TABLE IF NOT EXISTS Master (password TEXT)");
-            db.run("CREATE TABLE IF NOT EXISTS Vault (Detail TEXT , Desc TEXT , password TEXT)", (err) => {
+            db.run("CREATE TABLE IF NOT EXISTS Vault (detail TEXT , desc TEXT , password TEXT)", (err) => {
                 if (err) reject(err);
                 resolve();
             });
@@ -46,6 +46,29 @@ createMasterPassword = (masterPassword) => {
 
     })
 }
+
+createNewPassword = (dataObj) => {
+    return new Promise(async (resolve, reject) => {
+        db.run("INSERT INTO Vault VALUES (? , ? , ?)", [dataObj.detail, dataObj.email, dataObj.password], (err) => {
+            if (err)
+                reject();
+
+            resolve(true);
+        });
+    });
+}
+
+getAllPasswords = () => {
+    return new Promise(async (resolve, reject) => {
+        db.all("SELECT * FROM Vault", (err, rows) => {
+            if (err)
+                reject();
+
+            resolve(rows);
+        })
+    });
+}
+
 closeDB = () => {
     db.close();
 }
@@ -54,5 +77,7 @@ module.exports = {
     createDB: createDB,
     getMasterPassword: getMasterPassword,
     createMasterPassword: createMasterPassword,
-    closeDB: closeDB
+    closeDB: closeDB,
+    createNewPassword: createNewPassword,
+    getAllPasswords: getAllPasswords,
 }

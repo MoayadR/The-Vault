@@ -1,6 +1,6 @@
 const { app, BrowserWindow, screen, ipcMain } = require('electron')
 const path = require('node:path')
-const { createDB, getMasterPassword, closeDB, createMasterPassword } = require('./sqlite.js');
+const { createDB, getMasterPassword, closeDB, createMasterPassword, createNewPassword, getAllPasswords } = require('./sqlite.js');
 const { encrypt, decrypt } = require('./encryption.js');
 
 
@@ -12,8 +12,22 @@ const createWindow = (winPath, preloadPath) => {
             preload: path.join(__dirname, preloadPath)
         }
     })
-    // win.openDevTools();
+    win.openDevTools();
 
+    win.removeMenu();
+    win.loadFile(winPath)
+}
+
+const createPopup = (winPath, preloadPath) => {
+    const win = new BrowserWindow({
+        width: 400, height: 400,
+        webPreferences: {
+            preload: path.join(__dirname, preloadPath)
+        }
+    })
+    win.openDevTools();
+
+    win.removeMenu();
     win.loadFile(winPath)
 }
 
@@ -25,7 +39,12 @@ app.whenReady().then(async () => {
     }
 
     const masterPasswordObj = await getMasterPassword();
-    const masterPassword = masterPasswordObj.password;
+
+    let masterPassword;
+    if (masterPasswordObj !== undefined)
+        masterPassword = masterPasswordObj.password;
+    else
+        masterPassword = undefined;
 
     ipcMain.handle("verifyMasterPassword", async (event, data) => {
         if (data === decrypt(masterPassword)) {
@@ -35,6 +54,23 @@ app.whenReady().then(async () => {
             return true;
         }
         return false;
+    });
+
+    ipcMain.handle('getAllPasswords', async () => {
+        return await getAllPasswords();
+    });
+
+    ipcMain.on("openCreateNewPassword", async (event, data) => {
+        createPopup('pages/Popup/popup.html', 'preload.js');
+    })
+
+    ipcMain.on('createPassword', async (event, data) => {
+        const status = await createNewPassword(data);
+
+        if (status === true) {
+            const win = BrowserWindow.getFocusedWindow();
+            win.close();
+        }
     });
 
     ipcMain.on("createMasterPassword", async (event, data) => {
