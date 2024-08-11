@@ -5,7 +5,7 @@ createDB = () => {
     return new Promise((resolve, reject) => {
         db.serialize(() => {
             db.run("CREATE TABLE IF NOT EXISTS Master (password TEXT)");
-            db.run("CREATE TABLE IF NOT EXISTS Vault (detail TEXT , desc TEXT , password TEXT)", (err) => {
+            db.run("CREATE TABLE IF NOT EXISTS Vault (id integer primary key ,detail TEXT , desc TEXT , password TEXT)", (err) => {
                 if (err) reject(err);
                 resolve();
             });
@@ -49,7 +49,7 @@ createMasterPassword = (masterPassword) => {
 
 createNewPassword = (dataObj) => {
     return new Promise(async (resolve, reject) => {
-        db.run("INSERT INTO Vault VALUES (? , ? , ?)", [dataObj.detail, dataObj.email, dataObj.password], (err) => {
+        db.run("INSERT INTO Vault VALUES (NULL,? , ? , ?)", [dataObj.detail, dataObj.email, dataObj.password], (err) => {
             if (err)
                 reject();
 

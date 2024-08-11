@@ -16,6 +16,7 @@ const createWindow = (winPath, preloadPath) => {
 
     win.removeMenu();
     win.loadFile(winPath)
+    return win;
 }
 
 const createPopup = (winPath, preloadPath) => {
@@ -39,6 +40,7 @@ app.whenReady().then(async () => {
     }
 
     const masterPasswordObj = await getMasterPassword();
+    let mainScreen = null;
 
     let masterPassword;
     if (masterPasswordObj !== undefined)
@@ -65,7 +67,7 @@ app.whenReady().then(async () => {
     });
 
     ipcMain.on("openCreateNewPassword", async (event, data) => {
-        createPopup('pages/Popup/popup.html', 'preload.js');
+        createPopup('pages/CreatePopup/createpopup.html', 'preload.js');
     })
 
     ipcMain.on('createPassword', async (event, data) => {
@@ -75,6 +77,9 @@ app.whenReady().then(async () => {
         if (status === true) {
             const win = BrowserWindow.getFocusedWindow();
             win.close();
+
+            // like setting the state
+            mainScreen.reload();
         }
     });
 
@@ -111,10 +116,10 @@ app.whenReady().then(async () => {
         initialWindow = 'pages/Register/register.html';
     }
 
-    createWindow(initialWindow, 'preload.js')
+    mainScreen = createWindow(initialWindow, 'preload.js');
 
     app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow(initialWindow, 'preload.js')
+        if (BrowserWindow.getAllWindows().length === 0) mainScreen = createWindow(initialWindow, 'preload.js');
     })
 })
 

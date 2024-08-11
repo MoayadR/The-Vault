@@ -111,7 +111,6 @@ body {
 
 .delete-icon {
     color: red;
-    font-size: 28px;
 }
 
 .delete-icon:hover {
@@ -133,5 +132,9 @@ body {
 }
 
 .add-div:hover {
+    cursor: pointer;
+}
+
+.edit:hover {
     cursor: pointer;
 }
