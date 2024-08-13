@@ -138,3 +138,7 @@ body {
 .edit:hover {
     cursor: pointer;
 }
+
+.copy:hover {
+    cursor: grab;
+}

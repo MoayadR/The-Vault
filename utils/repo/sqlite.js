@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('database.db');
+const db = new sqlite3.Database('../../database.db');
 
 createDB = () => {
     return new Promise((resolve, reject) => {
@@ -58,6 +58,17 @@ createNewPassword = (dataObj) => {
     });
 }
 
+deletePassword = (id) => {
+    return new Promise(async (resolve, reject) => {
+        db.run("DELETE FROM Vault WHERE id = (?)", id, (err) => {
+            if (err)
+                reject();
+
+            resolve(true);
+        });
+    });
+}
+
 getAllPasswords = () => {
     return new Promise(async (resolve, reject) => {
         db.all("SELECT * FROM Vault", (err, rows) => {
@@ -80,4 +91,5 @@ module.exports = {
     closeDB: closeDB,
     createNewPassword: createNewPassword,
     getAllPasswords: getAllPasswords,
+    deletePassword: deletePassword,
 }

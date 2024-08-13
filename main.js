@@ -1,7 +1,7 @@
 const { app, BrowserWindow, screen, ipcMain } = require('electron')
 const path = require('node:path')
-const { createDB, getMasterPassword, closeDB, createMasterPassword, createNewPassword, getAllPasswords } = require('./sqlite.js');
-const { encrypt, decrypt } = require('./encryption.js');
+const { createDB, getMasterPassword, closeDB, createMasterPassword, createNewPassword, getAllPasswords, deletePassword } = require('./utils/repo/sqlite.js');
+const { encrypt, decrypt } = require('./utils/security/encryption.js');
 
 
 const createWindow = (winPath, preloadPath) => {
@@ -81,6 +81,11 @@ app.whenReady().then(async () => {
             // like setting the state
             mainScreen.reload();
         }
+    });
+
+    ipcMain.on('deletePassword', async (event, data) => {
+        res = await deletePassword(data);
+        if (res) mainScreen.reload();
     });
 
     ipcMain.on("createMasterPassword", async (event, data) => {
