@@ -6,5 +6,8 @@ contextBridge.exposeInMainWorld('messages', {
     openCreateNewPassword: () => ipcRenderer.send('openCreateNewPassword'),
     createPassword: (data) => ipcRenderer.send('createPassword', data),
     getAllPasswords: async () => ipcRenderer.invoke('getAllPasswords'),
-    deletePassword: (id) => ipcRenderer.send('deletePassword', id)
+    deletePassword: (id) => ipcRenderer.send('deletePassword', id),
+    openEditPassword: (passwordObj) => ipcRenderer.send('openEditPassword', passwordObj),
+    recievePasswordObj: (callback) => ipcRenderer.on('passwordObj', (event, data) => callback(data)),
+    editPassword: (passwordObj) => ipcRenderer.send('editPassword', passwordObj)
 })

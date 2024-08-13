@@ -1,6 +1,6 @@
 const { app, BrowserWindow, screen, ipcMain } = require('electron')
 const path = require('node:path')
-const { createDB, getMasterPassword, closeDB, createMasterPassword, createNewPassword, getAllPasswords, deletePassword } = require('./utils/repo/sqlite.js');
+const { createDB, getMasterPassword, closeDB, createMasterPassword, createNewPassword, getAllPasswords, deletePassword, editPassword } = require('./sqlite.js');
 const { encrypt, decrypt } = require('./utils/security/encryption.js');
 
 
@@ -30,6 +30,7 @@ const createPopup = (winPath, preloadPath) => {
 
     win.removeMenu();
     win.loadFile(winPath)
+    return win;
 }
 
 app.whenReady().then(async () => {
@@ -86,6 +87,22 @@ app.whenReady().then(async () => {
     ipcMain.on('deletePassword', async (event, data) => {
         res = await deletePassword(data);
         if (res) mainScreen.reload();
+    });
+    ipcMain.on('openEditPassword', async (event, data) => {
+        popup = createPopup('pages/EditPopup/editpopup.html', 'preload.js');
+        popup.webContents.send('passwordObj', data);
+    });
+    ipcMain.on('editPassword', async (event, data) => {
+        data.password = encrypt(data.password);
+
+        res = await editPassword(data);
+        if (res) {
+            let windows = BrowserWindow.getAllWindows();
+            for (win of windows) {
+                if (win !== mainScreen) win.close();
+            }
+            mainScreen.reload();
+        }
     });
 
     ipcMain.on("createMasterPassword", async (event, data) => {

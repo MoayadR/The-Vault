@@ -39,9 +39,7 @@ const makeTableRow = (passwordObj) => {
         navigator.clipboard.writeText(passwordObj.password);
     });
 
-    td4.addEventListener('click', () => {
-
-    });
+    td4.addEventListener('click', () => messages.openEditPassword(passwordObj));
 
     td5.addEventListener('click', () => deletePassword(passwordObj.id));
 

@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('../../database.db');
+const db = new sqlite3.Database('./database.db');
 
 createDB = () => {
     return new Promise((resolve, reject) => {
@@ -69,6 +69,18 @@ deletePassword = (id) => {
     });
 }
 
+editPassword = (passwordObj) => {
+    return new Promise(async (resolve, reject) => {
+        db.run("UPDATE Vault SET detail = ?, desc = ?, password = ? WHERE id = ?;", [passwordObj.detail, passwordObj.desc, passwordObj.password, passwordObj.id], (err) => {
+            if (err)
+                reject();
+            console.log(passwordObj.id);
+
+            resolve(true);
+        });
+    });
+}
+
 getAllPasswords = () => {
     return new Promise(async (resolve, reject) => {
         db.all("SELECT * FROM Vault", (err, rows) => {
@@ -92,4 +104,5 @@ module.exports = {
     createNewPassword: createNewPassword,
     getAllPasswords: getAllPasswords,
     deletePassword: deletePassword,
+    editPassword: editPassword,
 }
