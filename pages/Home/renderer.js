@@ -1,5 +1,6 @@
 const addPasswordIcon = document.querySelector('.plus');
 const deleteIcons = document.querySelectorAll('.delete-icon');
+const searchInput = document.querySelector('.search-input');
 
 addPasswordIcon.addEventListener('click', () => messages.openCreateNewPassword())
 const tbody = document.getElementById('tbody')
@@ -60,5 +61,21 @@ async function main() {
         makeTableRow(obj);
     }
 }
+
+searchInput.addEventListener('keyup', () => {
+    const trElements = document.querySelectorAll('tbody tr');
+    const searchValue = searchInput.value;
+
+    for (let tr of trElements) {
+        let status = false;
+        for (let td of tr.children) {
+            if (td.innerText.includes(searchValue))
+                status = true;
+        }
+
+        if (status) tr.style.display = "";
+        else tr.style.display = "none";
+    }
+});
 
 main();
