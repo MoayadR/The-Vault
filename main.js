@@ -1,6 +1,6 @@
 const { app, BrowserWindow, screen, ipcMain } = require('electron')
 const path = require('node:path')
-const { createDB, getMasterPassword, closeDB, createMasterPassword, createNewPassword, getAllPasswords, deletePassword, editPassword } = require('./sqlite.js');
+const { createDB, getMasterPassword, createMasterPassword, createNewPassword, getAllPasswords, deletePassword, editPassword } = require('./sqlite.js');
 const { encrypt, decrypt } = require('./utils/security/encryption.js');
 
 
@@ -148,6 +148,5 @@ app.whenReady().then(async () => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit()
-        closeDB();
     }
 })
