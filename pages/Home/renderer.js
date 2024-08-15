@@ -64,12 +64,12 @@ async function main() {
 
 searchInput.addEventListener('keyup', () => {
     const trElements = document.querySelectorAll('tbody tr');
-    const searchValue = searchInput.value;
+    const searchValue = searchInput.value.trim().toLowerCase();
 
     for (let tr of trElements) {
         let status = false;
         for (let td of tr.children) {
-            if (td.innerText.includes(searchValue))
+            if (td.innerText.toLowerCase().includes(searchValue))
                 status = true;
         }
 

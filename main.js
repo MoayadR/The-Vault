@@ -90,17 +90,18 @@ app.whenReady().then(async () => {
     });
     ipcMain.on('openEditPassword', async (event, data) => {
         popup = createPopup('pages/EditPopup/editpopup.html', 'preload.js');
-        popup.webContents.send('passwordObj', data);
+        popup.webContents.on('did-finish-load', () => {
+            popup.webContents.send('passwordObj', data);
+        });
     });
     ipcMain.on('editPassword', async (event, data) => {
         data.password = encrypt(data.password);
 
         res = await editPassword(data);
         if (res) {
-            let windows = BrowserWindow.getAllWindows();
-            for (win of windows) {
-                if (win !== mainScreen) win.close();
-            }
+            let window = BrowserWindow.getFocusedWindow();
+            window.close();
+
             mainScreen.reload();
         }
     });

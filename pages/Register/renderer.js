@@ -1,9 +1,9 @@
 const masterPasswordInput = document.getElementById('password')
 
 const createMasterPassword = () => {
-    const password = masterPasswordInput.value;
-    if (password.trim() !== '') {
-        messages.createMasterPassword(password.trim());
+    const password = masterPasswordInput.value.trim();
+    if (password !== '') {
+        messages.createMasterPassword(password);
     }
 }
 
