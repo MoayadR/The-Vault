@@ -10,9 +10,10 @@ const createWindow = (winPath, preloadPath) => {
         width, height,
         webPreferences: {
             preload: path.join(__dirname, preloadPath)
-        }
+        },
+        icon: path.join(__dirname, 'vault-icon.jpg')
     })
-    win.openDevTools();
+    // win.openDevTools();
 
     win.removeMenu();
     win.loadFile(winPath)
@@ -24,9 +25,10 @@ const createPopup = (winPath, preloadPath) => {
         width: 400, height: 400,
         webPreferences: {
             preload: path.join(__dirname, preloadPath)
-        }
+        },
+        icon: path.join(__dirname, 'vault-icon.jpg')
     })
-    win.openDevTools();
+    // win.openDevTools();
 
     win.removeMenu();
     win.loadFile(winPath)
