@@ -40,27 +40,41 @@ app.whenReady().then(async () => {
         console.log(error);
     }
 
-    const masterPasswordObj = await getMasterPassword();
+    let masterPasswordObj;
+
+    try {
+        masterPasswordObj = await getMasterPassword();
+    } catch (error) {
+        console.log(error);
+
+    }
+
     let mainScreen = null;
 
-    let masterPassword;
+    let masterPassword = undefined;
+
     if (masterPasswordObj !== undefined)
         masterPassword = masterPasswordObj.password;
-    else
-        masterPassword = undefined;
+
 
     ipcMain.handle("verifyMasterPassword", async (event, data) => {
         if (data === decrypt(masterPassword)) {
             // oopen the home window 
-            const currentWindow = BrowserWindow.getAllWindows()[0];
-            currentWindow.loadFile('pages/Home/home.html');
+            mainScreen.loadFile('pages/Home/home.html');
             return true;
         }
         return false;
     });
 
     ipcMain.handle('getAllPasswords', async () => {
-        let passwordObjs = await getAllPasswords();
+        let passwordObjs = [];
+
+        try {
+            passwordObjs = await getAllPasswords();
+        } catch (error) {
+            console.log(error);
+        }
+
         for (let obj of passwordObjs) {
             obj.password = decrypt(obj.password);
         }
@@ -73,7 +87,13 @@ app.whenReady().then(async () => {
 
     ipcMain.on('createPassword', async (event, data) => {
         data.password = encrypt(data.password);
-        const status = await createNewPassword(data);
+        let status = false;
+
+        try {
+            status = await createNewPassword(data);
+        } catch (error) {
+            console.log(error);
+        }
 
         if (status === true) {
             const win = BrowserWindow.getFocusedWindow();
@@ -85,7 +105,14 @@ app.whenReady().then(async () => {
     });
 
     ipcMain.on('deletePassword', async (event, data) => {
-        res = await deletePassword(data);
+        let res = false;
+
+        try {
+            res = await deletePassword(data);
+        } catch (error) {
+            console.log(error);
+        }
+
         if (res) mainScreen.reload();
     });
     ipcMain.on('openEditPassword', async (event, data) => {
@@ -97,7 +124,14 @@ app.whenReady().then(async () => {
     ipcMain.on('editPassword', async (event, data) => {
         data.password = encrypt(data.password);
 
-        res = await editPassword(data);
+        let res = false;
+
+        try {
+            res = await editPassword(data);
+        } catch (error) {
+            console.log(error);
+        }
+
         if (res) {
             let window = BrowserWindow.getFocusedWindow();
             window.close();
@@ -125,10 +159,6 @@ app.whenReady().then(async () => {
 
         } catch (error) {
             console.log(error);
-            /*
-                Error Handling
-                =============================================================================================================
-            */
         }
 
     })

@@ -45,7 +45,6 @@ createMasterPassword = (masterPassword) => {
         db.run("INSERT INTO Master VALUES (?)", [masterPassword], (err) => {
             db.close();
             if (err) {
-                console.log(err);
                 reject();
             }
             resolve(true);
