@@ -21,7 +21,7 @@ The Vault is a modern and secure application designed to help users manage their
 
 ## How does it work?
 
-If a master password exist it will ask you to enter it.
+If a master password exists it will ask you to enter it.
 
 Else If it's your first time using the app it will ask you to create a master password.
 
