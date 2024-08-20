@@ -34,6 +34,13 @@ Once you are in the app you can use the following functionalities:
 3. Delete an existing Password
 4. Search for a password/certain text in the passwords table
 
+## How to package?
+
+npx electron-packager . the-vault --overwrite --asar --platform={specific_platform} --arch={specific_arch} --prune=true --out=release-builds --icon={icon_path}
+
+> [!NOTE]
+> There is a bug with .env files while packaging the app, you have to navigate to utils/security/encryption.js and change the secret key to a hard coded secret key
+
 ## Contributions
 Contributions are welcome! If you find any bugs or want to add new features, please open an issue or create a pull request.
 
