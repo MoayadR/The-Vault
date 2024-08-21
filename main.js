@@ -11,7 +11,7 @@ const createWindow = (winPath, preloadPath) => {
         webPreferences: {
             preload: path.join(__dirname, preloadPath)
         },
-        icon: path.join(__dirname, 'images/vault-icon.jpg')
+        icon: path.join(__dirname, 'images/vault-icon.ico')
     })
     // win.openDevTools();
 
@@ -26,7 +26,7 @@ const createPopup = (winPath, preloadPath) => {
         webPreferences: {
             preload: path.join(__dirname, preloadPath)
         },
-        icon: path.join(__dirname, 'images/vault-icon.jpg')
+        icon: path.join(__dirname, 'images/vault-icon.ico')
     })
     // win.openDevTools();
 
