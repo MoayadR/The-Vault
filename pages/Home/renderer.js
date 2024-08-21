@@ -1,4 +1,4 @@
-const addPasswordIcon = document.querySelector('.plus');
+const addPasswordIcon = document.querySelector('.add-div');
 const deleteIcons = document.querySelectorAll('.delete-icon');
 const searchInput = document.querySelector('.search-input');
 
