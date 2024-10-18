@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Password Manager App",
   "main": "main.js",
+  "win":{
+     "icon": "images/vault-icon.ico",
+      "target": "nsis"
+  },
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
